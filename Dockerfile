@@ -15,6 +15,8 @@
 FROM gcr.io/distroless/static:latest
 LABEL maintainers="Kubernetes Authors"
 LABEL description="NFS subdir external provisioner"
+RUN CGO_ENABLED=0 go build -a -ldflags ' -X main.version= -extldflags "-static"' -o ./bin/nfs-subdir-external-provisioner ./cmd/nfs-subdir-external-provisioner
+
 ARG binary=./bin/nfs-subdir-external-provisioner
 
 COPY ${binary} /nfs-subdir-external-provisioner
